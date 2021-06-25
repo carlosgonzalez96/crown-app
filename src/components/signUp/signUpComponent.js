@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 import FormInput from '../formInput/formInput';
 import CustomButton from '../customButton/customButton';
@@ -25,7 +26,13 @@ class SignUp extends React.Component {
         const { displayName, email, password, confirmPassword } = this.state;
 
         if(password !== confirmPassword) {
-            alert("passwords don't match");
+            // alert("passwords don't match");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password did not match!',
+                confirmButtonColor: "#000000",
+              });
             return
         }
 
