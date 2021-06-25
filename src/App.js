@@ -15,15 +15,15 @@ class App extends React.Component {
     super();
 
     this.state = {
-      currentUser: null,
-    }
+      currentUser: null
+    };
   }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth) {
+      if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
@@ -32,13 +32,13 @@ class App extends React.Component {
               id: snapShot.id,
               ...snapShot.data()
             }
-          })
+          });
+
+          console.log(this.state);
         });
-        console.log(this.state);
-      } else {
-        this.setState({currentUser: userAuth});
       }
 
+      this.setState({ currentUser: userAuth });
     });
   }
 
@@ -53,12 +53,11 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signIn' component={SignInAndSignUpPage} />
+          <Route path='/signin' component={SignInAndSignUpPage} />
         </Switch>
       </div>
     );
   }
-  
 }
 
 export default App;
